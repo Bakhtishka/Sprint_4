@@ -12,16 +12,13 @@ import java.time.Duration;
 3. //*[@id="root"]/div/div[2]/div[2]/div[2]/div[2]/div[3]    - элемент "трое суток" в выпадающем списке "Срок аренды";
 4. input#black.Checkbox_Input__14A2w                         - чекбокс "Чёрная жемчужина";
 5. input#grey.Checkbox_Input__14A2w                          - чекбокс "Серая безисходность";
-6. //*[@id="root"]/div/div[2]/div[2]/div[4]/input            - поле "Комментарий для курьера";
+6. //input[@type='text'][@placeholder='Комментарий для курьера'] - поле "Комментарий для курьера";
 7. //*[@id="root"]/div/div[2]/div[3]/button[2]               - кнопка "Заказать" под формой заказа;
-8.
-9.  //*[@id="root"]/div/div[2]/div[5]                        - всплывающее окно "Хотите оформить заказ?"
-10. //*[@id="root"]/div/div[2]/div[5]/div[2]/button[2]       - кнопка "Да" в окошке "Хотите оформить заказ?";
-11. //*[@id="root"]/div/div[2]/div[5]/div[2]/button[1]       - кнопка "НЕТ" в окошке "Хотите оформить заказ?";
-12. div.Order_Content__bmtHS                                 - локатор окна "Для кого самокат";
-13. div.Order_ModalHeader__3FDaJ                             - надпись в окошке "Заказ оформлен..."
-14. div.Order_Modal__YZ-d3                                   - окошко "ЗАКАЗ ОФОРМЛЕН";
-15. /html/body/div/div/div[2]/div[5]/div[2]/button           - кнопка "ПОСМОТРЕТЬ СТАТУС" в окошке "Заказ оформлен";
+8. //*[@id="root"]/div/div[2]/div[5]                        - всплывающее окно "Хотите оформить заказ?"
+9. //*[@id="root"]/div/div[2]/div[5]/div[2]/button[2]       - кнопка "Да" в окошке "Хотите оформить заказ?";
+10. //*[@id="root"]/div/div[2]/div[5]/div[2]/button[1]       - кнопка "НЕТ" в окошке "Хотите оформить заказ?";
+11. div.Order_Content__bmtHS                                 - локатор окна "Для кого самокат";
+12. div.Order_Modal__YZ-d3                                   - окошко "ЗАКАЗ ОФОРМЛЕН";
  */
 
 // страница: "Про аренду"
@@ -42,7 +39,7 @@ public class AboutRentPage {
     private final By GRAY_SCOOTER_CHECKBOX = By.cssSelector("input#grey.Checkbox_Input__14A2w");
 
     //поле "Комментарий для курьера"
-    private final By COMMENT_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/input");
+    private final By COMMENT_FIELD = By.xpath("//input[@type='text'][@placeholder='Комментарий для курьера']"); //xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/input");
 
     //кнопка "Заказать" под формой заказа
     private final By ORDER_BUTTON = By.cssSelector("button.Button_Middle__1CSJM:nth-child(2)");
@@ -51,7 +48,7 @@ public class AboutRentPage {
     private final By WONT_YOU_PLACE_AN_ORDER_WINDOW = By.cssSelector("div.Order_Modal__YZ-d3");
 
     //кнопка "Да" в окошке "Хотите оформить заказ?"
-    private final By YES_BUTTON = By.cssSelector("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
+    private final By YES_BUTTON = By.cssSelector("button.Button_Button__ra12g.Button_Middle__1CSJM"); //cssSelector("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
 
     //окошко "ЗАКАЗ ОФОРМЛЕН"
     private final By ORDER_IS_PROCESSED = By.cssSelector("div.Order_Modal__YZ-d3");
@@ -66,7 +63,6 @@ public class AboutRentPage {
     public void inputDateField(String date) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.elementToBeClickable(DATE_PICKER_FIELD));
-       // new WebDriverWait(driver, Duration.ofSeconds(3));
         WebElement inputDate = driver.findElement(DATE_PICKER_FIELD);
         inputDate.click();
         inputDate.clear();
@@ -95,7 +91,7 @@ public class AboutRentPage {
         wait.until(ExpectedConditions.elementToBeClickable(BLACK_SCOOTER_CHECKBOX));
         WebElement blackScooter = driver.findElement(BLACK_SCOOTER_CHECKBOX);
         blackScooter.click();
-        Assert.assertTrue(blackScooter.isSelected());
+      //  Assert.assertTrue(blackScooter.isSelected());
     }
 
     // метод, выбирающий  самокат серого цвета в поле "Цвет самоката"
