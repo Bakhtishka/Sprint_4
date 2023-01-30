@@ -1,13 +1,15 @@
 package ru.yandex.praktikum.model;
 
 
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
 /* Список локаторов для страницы: "ДЛЯ КОГО САМОКАТ"
-1. button.Button_Button__ra12g                                                           -  кнопка "Заказать" в хедере;
+1. button.Button_Button__ra12g                                                    -  кнопка "Заказать" в хедере;
 2. button.Button_Button__ra12g.Button_Middle__1CSJM                               - кнопка "Заказать" в центре страницы;
 3. //*[@id="root"]/div/div[2]/div[2]/div[1]/input                                                          - поле "Имя";
 6. //*[@id="root"]/div/div[2]/div[2]/div[2]/input                                                     - поле "Фамилия";
@@ -22,43 +24,40 @@ import java.time.Duration;
 // страница: "Для кого самокат"
 public class WhoIsTheScooterForPage {
 
-    //урл главной страницы
-    private static final String MAIN_PAGE_URL = "https://qa-scooter.praktikum-services.ru/";
-
     // кнопка "Заказать" в хедере
-    private static final By HEADER_ORDER_BUTTON = By.cssSelector("button.Button_Button__ra12g");
+    private  final By HEADER_ORDER_BUTTON = By.cssSelector("button.Button_Button__ra12g");
 
     //кнопка "Заказать" в центре страницы
-    private static final By MIDDLE_ORDER_BUTTON = By.cssSelector("button.Button_Button__ra12g.Button_Middle__1CSJM");
+    private  final By MIDDLE_ORDER_BUTTON = By.cssSelector("button.Button_Button__ra12g.Button_Middle__1CSJM");
 
     // локатор для поля "Имя"
-    private static final By INPUT_FIELD_FIRST_NAME =
+    private  final By INPUT_FIELD_FIRST_NAME =
             By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[1]/input");
 
     // локатор для поля "Фамилия"
-    private static final By INPUT_FIELD_LAST_NAME =
+    private  final By INPUT_FIELD_LAST_NAME =
             By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/input");
 
     // локатор для поля "Адрес куда привезти заказ"
-    private static final By INPUT_FIELD_ADDRESS =
+    private  final By INPUT_FIELD_ADDRESS =
             By.xpath(".//*[@class = 'Input_Input__1iN_Z Input_Responsible__1jDKN' and @type = 'text' or text() = " +
                     "'* Адрес: куда привезти заказ']");
 
     // локатор для поля "Станция метро"
-    private static final By INPUT_FIELD_METRO = By.xpath(".//*[@class = 'select-search__input']");
+    private  final By INPUT_FIELD_METRO = By.xpath(".//*[@class = 'select-search__input']");
 
     // локатор для поля "Телефон: на него позвонит курьер"
-    private static final By INPUT_FIELD_PHONE =
+    private  final By INPUT_FIELD_PHONE =
             By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[5]/input");
 
     // локатор для кнопки "Далее"
-    private static final By BUTTON_NEXT = By.cssSelector("button.Button_Button__ra12g.Button_Middle__1CSJM");
+    private  final By NEXT_BUTTON = By.xpath("//*[@id=\"root\"]/div/div[2]/div[3]/button");
 
     //локатор страницы "Про заказ"
-    private static final By ABOUT_RENT_PAGE_FORM = By.cssSelector("div.Order_Content__bmtHS");
+    private  final By ABOUT_RENT_PAGE_FORM = By.cssSelector("div.Order_Content__bmtHS");
 
     //кнопка принятия куки
-    private static final By COOKIE_BUTTON = By.cssSelector("button#rcc-confirm-button.App_CookieButton__3cvqF");
+    private  final By COOKIE_BUTTON = By.cssSelector("button#rcc-confirm-button.App_CookieButton__3cvqF");
     private final WebDriver driver;
 
     public WhoIsTheScooterForPage(WebDriver driver) { // класс страницы "Для кого самокат"
@@ -67,7 +66,8 @@ public class WhoIsTheScooterForPage {
 
     //метод открывает главную страницу сайта
     public void openMainPage() {
-        driver.get(MAIN_PAGE_URL);
+        //урл главной страницы
+        driver.get("https://qa-scooter.praktikum-services.ru/");
     }
 
     //метод принимающий куки на морде сайта
@@ -101,7 +101,8 @@ public class WhoIsTheScooterForPage {
         firstNameField.click();
         firstNameField.clear();
         firstNameField.sendKeys(name);
-        new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.textToBePresentInElementValue(firstNameField, name));
+        Assert.assertEquals (name, firstNameField.getAttribute("value"));
     }
 
     //метод заполняет поле "Фамилия"
@@ -112,7 +113,7 @@ public class WhoIsTheScooterForPage {
         lastNameField.click();
         lastNameField.clear();
         lastNameField.sendKeys(lastName);
-        lastNameField.getText();
+        Assert.assertEquals (lastName, lastNameField.getAttribute("value"));
     }
 
     //метод заполняет поле "Адрес куда привезти заказ"
@@ -123,7 +124,7 @@ public class WhoIsTheScooterForPage {
         addressField.click();
         addressField.clear();
         addressField.sendKeys(address);
-        addressField.getText();
+        Assert.assertEquals (address, addressField.getAttribute("value"));
     }
 
     //метод выбирает станцию в поле "Станция метро"
@@ -139,6 +140,7 @@ public class WhoIsTheScooterForPage {
                 .until(ExpectedConditions.textToBePresentInElementValue(metroInput, station));
         metroInput.sendKeys(Keys.DOWN);
         metroInput.sendKeys(Keys.RETURN);
+        Assert.assertEquals (station, metroInput.getAttribute("value"));
     }
 
     //метод заполняет поле "Телефон: на него позвонит курьер"
@@ -148,16 +150,19 @@ public class WhoIsTheScooterForPage {
         final WebElement phoneNum = driver.findElement(INPUT_FIELD_PHONE);
         phoneNum.clear();
         phoneNum.sendKeys(phoneNumber);
-        phoneNum.getText();
+        Assert.assertEquals (phoneNumber, phoneNum.getAttribute("value"));
     }
 
     //метод кликает на кнопку "Далее"
     public void clickNextButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(BUTTON_NEXT));
-        final WebElement nextButton = driver.findElement(BUTTON_NEXT);
+        wait.until(ExpectedConditions.elementToBeClickable(NEXT_BUTTON));
+        final WebElement nextButton = driver.findElement(NEXT_BUTTON);
         nextButton.click();
-        new WebDriverWait(driver, Duration.ofSeconds(3));
-        driver.findElement(ABOUT_RENT_PAGE_FORM).isDisplayed();
+    }
+
+    //проверка, что окно "Про аренду" открылось
+    public void checkAboutRentPageIsOpen() {
+        Assert.assertTrue(driver.findElement(ABOUT_RENT_PAGE_FORM).isDisplayed());
     }
 }

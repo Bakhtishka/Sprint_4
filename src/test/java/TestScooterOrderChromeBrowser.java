@@ -12,7 +12,6 @@ import ru.yandex.praktikum.model.WhoIsTheScooterForPage;
  этих страницах, а также и кнопок на всплывающих окнах, браузер Chrome */
 @RunWith(org.junit.runners.Parameterized.class) //аннотация для параметризации тестов
 public class TestScooterOrderChromeBrowser {
-    private WebDriver driver;
     private final String firstNameUser;
     private final String lastNameUser;
     private final String addressUser;
@@ -20,6 +19,7 @@ public class TestScooterOrderChromeBrowser {
     private final String phoneNumUser;
     private final String selectDate;
     private final String commentUser;
+    private WebDriver driver;
 
 
     public TestScooterOrderChromeBrowser(String firstNameUser, String lastNameUser, String addressUser,
@@ -39,57 +39,63 @@ public class TestScooterOrderChromeBrowser {
         driver = new ChromeDriver();
     }
 
-    // 2-ой тестовый сценарий, заказ скутера
+    // 1-ый флоу сценарий, с кнопкой "Заказать" в хедере страницы
     @Test
-    public void testOrderScooter() {
-        AboutRentPage pageAboutRent = new AboutRentPage(driver);
-        WhoIsTheScooterForPage page = new WhoIsTheScooterForPage(driver);
-        page.openMainPage();
-        page.clickCookie();                       //жмём на кнопку "ПРИНЯТЬ", чтобы скрыть окно пропринятия или нет куки
-        page.clickHeaderOrderButton();                 //жмем на кнопку "ЗАКАЗАТЬ" в хедере страницы
-        page.enterFirstNameInNameField(firstNameUser);      // в открывшемся окне начинаем заполнять форму заказа с поля "ИМЯ"
-        page.enterLastNameInLastNameField(lastNameUser);
-        page.enterAddressInAddressField(addressUser);
-        page.select_MetroStationInMetroField(metroStation);
-        page.enter_PhoneNumberInInputPhoneField(phoneNumUser);
-        page.clickNextButton();                              //жмем на кнопку "ДАЛЕЕ"
-        pageAboutRent.checkInputDateField(selectDate);     //заполняем поле "КОГДА ПРИВЕЗТИ САМОКАТ"
-        pageAboutRent.chooseRentPeriod();                   //выбираем в списке нужный срок аренды
-        pageAboutRent.chooseScooterColourBlack();                //выбираем нужный цвет самоката
-        pageAboutRent.inputTextInCommentField(commentUser);   //пишем комментарий
-        pageAboutRent.clickOrderButton();                   //жмем кнопку "ЗАКАЗАТЬ" внизу формы
-        pageAboutRent.clickYesButtonInOrderWindow();        //в открывшемся окошке жмем кнопку "ДА" тут дальше ничего
-                                                            // не происходит - баг!
-    }
-
-    //   тестирование кнопок: кнопки "НЕТ" в окне "Хотите оформить заказ", кнопки "НАЗАД" на странице "Про аренду" и кнокпи
-    //"ЗАКАЗАТЬ" на морде сайта в центре страницы
-    @Test
-    public void testNoButtonInOrderWindow() {
+    public void testHeaderOrderButton() {
         AboutRentPage aboutRentPage = new AboutRentPage(driver);
         WhoIsTheScooterForPage page = new WhoIsTheScooterForPage(driver);
         page.openMainPage();
-        page.clickCookie();                       //жмём на кнопку "ПРИНЯТЬ", чтобы скрыть окно пропринятия или нет куки
-        page.clickMiddleOrderButton();                  //жмем на кнопку "ЗАКАЗАТЬ" в ЦЕНТРЕ страницы
+        page.clickCookie();                                  //жмём на кнопку "ПРИНЯТЬ", чтобы скрыть окно пропринятия или нет куки
+        page.clickHeaderOrderButton();                      //жмем на кнопку "ЗАКАЗАТЬ" в хедере страницы
         page.enterFirstNameInNameField(firstNameUser);      // в открывшемся окне начинаем заполнять форму заказа с поля "ИМЯ"
         page.enterLastNameInLastNameField(lastNameUser);
         page.enterAddressInAddressField(addressUser);
         page.select_MetroStationInMetroField(metroStation);
         page.enter_PhoneNumberInInputPhoneField(phoneNumUser);
         page.clickNextButton();
-        aboutRentPage.checkInputDateField(selectDate);   //заполняем поле "КОГДА ПРИВЕЗТИ САМОКАТ"
-        aboutRentPage.chooseRentPeriod();                   //выбираем в списке нужный срок аренды
-        aboutRentPage.chooseScooterColourBlack();                //выбираем нужный цвет самоката
-        aboutRentPage.inputTextInCommentField(commentUser);   //пишем комментарий
-        aboutRentPage.clickOrderButton();                   //жмем кнопку "ЗАКАЗАТЬ" внизу формы
-        aboutRentPage.clickNoButtonInOrderWindow();         //жмем кнопку "НЕТ" в открывшемся окошке
-        aboutRentPage.clickBackButton();                    //жмем кнопку "НАЗАД" под формой заказа в окне "Про аренду"
+        page.checkAboutRentPageIsOpen();
+        aboutRentPage.inputDateField(selectDate);               //заполняем поле "КОГДА ПРИВЕЗТИ САМОКАТ"
+        aboutRentPage.chooseRentPeriod();                       //выбираем в списке нужный срок аренды
+        aboutRentPage.chooseScooterColourGray();                //выбираем Серый цвет самоката
+        aboutRentPage.inputTextInCommentField(commentUser);     //пишем комментарий
+        aboutRentPage.clickOrderButton();                        //жмем кнопку "ЗАКАЗАТЬ" внизу формы
+        aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
+        aboutRentPage.checkWontYouPlaceAnOrderWidowIsDisplayed(); //проверяем открылось ли окно "Хотите оформить заказ"
+        aboutRentPage.clickYesButtonInOrderWindow();              //в открывшемся окошке жмем кнопку "ДА"
+        aboutRentPage.checkOrderIsProcessedWindowIsDisplayed();    //этот пункт не сработал - баг.
+    }
+
+         // 2-ой флоу сценарий: тестирование с кнопкой "Заказать" в центре страницы
+    @Test
+    public void testMiddleOrderButton() {
+        AboutRentPage aboutRentPage = new AboutRentPage(driver);
+        WhoIsTheScooterForPage page = new WhoIsTheScooterForPage(driver);
+        page.openMainPage();
+        page.clickCookie();                                  //жмём на кнопку "ПРИНЯТЬ", чтобы скрыть окно пропринятия или нет куки
+        page.clickMiddleOrderButton();                      //жмем на кнопку "ЗАКАЗАТЬ" в ЦЕНТРЕ страницы
+        page.enterFirstNameInNameField(firstNameUser);      // в открывшемся окне начинаем заполнять форму заказа с поля "ИМЯ"
+        page.enterLastNameInLastNameField(lastNameUser);
+        page.enterAddressInAddressField(addressUser);
+        page.select_MetroStationInMetroField(metroStation);
+        page.enter_PhoneNumberInInputPhoneField(phoneNumUser);
+        page.clickNextButton();
+        page.checkAboutRentPageIsOpen();
+        aboutRentPage.inputDateField(selectDate);               //заполняем поле "КОГДА ПРИВЕЗТИ САМОКАТ"
+        aboutRentPage.chooseRentPeriod();                       //выбираем в списке нужный срок аренды
+        aboutRentPage.chooseScooterColourGray();                //выбираем Серый цвет самоката
+        aboutRentPage.inputTextInCommentField(commentUser);     //пишем комментарий
+        aboutRentPage.clickOrderButton();                        //жмем кнопку "ЗАКАЗАТЬ" внизу формы
+        aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
+        aboutRentPage.checkWontYouPlaceAnOrderWidowIsDisplayed(); //проверяем открылось ли окно "Хотите оформить заказ"
+        aboutRentPage.clickYesButtonInOrderWindow();              //в открывшемся окошке жмем кнопку "ДА"
+        aboutRentPage.checkOrderIsProcessedWindowIsDisplayed();    //этот пункт не сработал - баг.
+
     }
 
     @Parameterized.Parameters  //аннотация тестовые параметры
     public static Object[][] getStrings() {
         return new Object[][]{
-                {"Иван", "Петров", "Садовая, 7", "Беляево", "89775554545", "12.03.2023", "Hi, i am wait for you at home!"},
+                {"Иван", "Петров", "Садовая, 7", "Беляево", "89775554545", "12.03.2023", "Привет!"},
                 {"Peter", "Ivanov", "Мира, 1", "Begovaya", "89265558778", "01.05.2023", "Привет, я тут!"},
                 {"Вова", "Gucci", "5-avenue, 123", "ПРОСПЕКТ МИРА", "+14544545455474", "05.05.2023", "Подсказка: Тебе понадобится найти поле карточки по названию города."},
                 {"Стивен", "Сигал", "5-авеню, 123", "Площадь революции", "75558884455", "28.01.2023", "Я верю что могу летать!"},
@@ -97,8 +103,10 @@ public class TestScooterOrderChromeBrowser {
         };
     }
 
-    @After
-    public void close() {
-        driver.quit();
+        @After
+        public void close () {
+             driver.quit();
+        }
     }
-}
+
+
