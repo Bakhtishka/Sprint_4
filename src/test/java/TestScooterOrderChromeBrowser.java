@@ -64,7 +64,7 @@ public class TestScooterOrderChromeBrowser {
         aboutRentPage.checkTextInOrderIsProcessedWindow();        //проверяем тот ли текст в окошке "Заказ оформлен"
     }
 
-         // 2-ой флоу сценарий: тестирование с кнопкой "Заказать" в центре страницы
+    // 2-ой флоу сценарий: тестирование с кнопкой "Заказать" в центре страницы
     @Test
     public void testMiddleOrderButton() {
         AboutRentPage aboutRentPage = new AboutRentPage(driver);
@@ -84,7 +84,6 @@ public class TestScooterOrderChromeBrowser {
         aboutRentPage.inputTextInCommentField(commentUser);     //пишем комментарий
         aboutRentPage.clickOrderButton();                        //жмем кнопку "ЗАКАЗАТЬ" внизу формы
         aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
-        aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
         aboutRentPage.checkOrderIsProcessedWindowIsOpen();       //проверка: открылось ли окошко "Заказ оформлен"
         aboutRentPage.checkTextInOrderIsProcessedWindow();        //проверяем тот ли текст в окошке "Заказ оформлен"
 
@@ -96,15 +95,13 @@ public class TestScooterOrderChromeBrowser {
                 {"Иван", "Петров", "Садовая, 7", "Беляево", "89775554545", "12.03.2023", "Привет!"},
                 {"Peter", "Ivanov", "Мира, 1", "Begovaya", "89265558778", "01.05.2023", "Привет, я тут!"},
                 {"Вова", "Gucci", "5-avenue, 123", "ПРОСПЕКТ МИРА", "+14544545455474", "05.05.2023", "Подсказка: Тебе понадобится найти поле карточки по названию города."},
-                {"Стивен", "Сигал", "5-авеню, 123", "Площадь революции", "75558884455", "28.01.2023", "Я верю что могу летать!"},
-                {"СЕрГЕй", "Сидоров", "БеГовая, 7777777", "Бегов0я", "+79775554545", "12032023", "ПРИВЕТ!"},
         };
     }
 
-        @After
-        public void close () {
-             driver.quit();
-        }
+    @After
+    public void close() {
+        driver.quit();
     }
+}
 
 

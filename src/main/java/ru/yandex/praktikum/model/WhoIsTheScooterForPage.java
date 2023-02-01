@@ -46,8 +46,6 @@ public class WhoIsTheScooterForPage {
     // локатор для кнопки "Далее"
     private  final By nextButton = By.xpath("//button[@class='Button_Button__ra12g Button_Middle__1CSJM'][text()='Далее']");
 
-    //локатор страницы "Про заказ"
-    private  final By aboutRentPageOrderForm = By.cssSelector("div.Order_Content__bmtHS");
 
     //кнопка принятия куки
     private  final By cookieButton = By.cssSelector("button#rcc-confirm-button.App_CookieButton__3cvqF");

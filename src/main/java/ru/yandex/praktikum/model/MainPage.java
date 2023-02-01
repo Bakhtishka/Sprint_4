@@ -81,17 +81,80 @@ public class MainPage {
         driver.findElement(cookieButton).click();
     }
 
-    public void checkTextsInSubHeaderPanels(
-            String buttonLocation,
-            String panelLocation,
-            String expectedText
-    ) {
-        final By buttonSelector = By.cssSelector(buttonLocation);
-        driver.findElement(buttonSelector).click();
+    //проверка соответствию текста при нажатии на первую стрелку
+    public void checkTextsInSubHeaderPanelOne() {
+        driver.findElement(buttonOne).click();
         new WebDriverWait(driver, Duration.ofSeconds(3));
-        final By panelSelector = By.cssSelector(panelLocation);
-        String actualText = driver.findElement(panelSelector).getText();
-        Assert.assertEquals(expectedText, actualText);
+        String button = driver.findElement(panelOne).getText();
+        String expectedText = "Сутки — 400 рублей. Оплата курьеру — наличными или картой.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на вторую стрелку
+    public void checkTextsInSubHeaderPanelTwo() {
+        driver.findElement(buttonTwo).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelTwo).getText();
+        String expectedText = "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями," +
+                " можете просто сделать несколько заказов — один за другим.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на третью стрелку
+    public void checkTextsInSubHeaderPanelThree() {
+        driver.findElement(buttonThree).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelThree).getText();
+        String expectedText = "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. " +
+                "Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат" +
+                " 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на четвертую стрелку
+    public void checkTextsInSubHeaderPanelFour() {
+        driver.findElement(buttonFour).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelFour).getText();
+        String expectedText = "Только начиная с завтрашнего дня. Но скоро станем расторопнее.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на пятую стрелку
+    public void checkTextsInSubHeaderPanelFive() {
+        driver.findElement(buttonFive).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelFive).getText();
+        String expectedText = "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому " +
+                "номеру 1010.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на шестую стрелку
+    public void checkTextsInSubHeaderPanelSix() {
+        driver.findElement(buttonSix).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelSix).getText();
+        String expectedText = "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на седьмую стрелку
+    public void checkTextsInSubHeaderPanelSeven() {
+        driver.findElement(buttonSeven).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelSeven).getText();
+        String expectedText = "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои.";
+        Assert.assertEquals(expectedText, button);
+    }
+
+    //проверка соответствию текста при нажатии на восьмую стрелку
+    public void checkTextsInSubHeaderPanelEight() {
+        driver.findElement(buttonEight).click();
+        new WebDriverWait(driver, Duration.ofSeconds(3));
+        String button = driver.findElement(panelEight).getText();
+        String expectedText = "Да, обязательно. Всем самокатов! И Москве, и Московской области.";
+        Assert.assertEquals(expectedText, button);
     }
 }
 

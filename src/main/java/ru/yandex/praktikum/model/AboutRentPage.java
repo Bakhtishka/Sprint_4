@@ -145,9 +145,10 @@ public class AboutRentPage {
     public void checkTextInOrderIsProcessedWindow() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
         wait.until(ExpectedConditions.visibilityOfElementLocated(textInWindowOrderIsProcessed));
-        final String expectedText = "Заказ оформлен";
+        final String expectedText = "^Заказ оформлен\\nНомер заказа: \\d*. Запишите его:\n" +
+                "пригодится, чтобы отслеживать статус$";
         WebElement actualText = driver.findElement(textInWindowOrderIsProcessed);
-        Assert.assertEquals (expectedText, actualText.getText());
+        Assert.assertTrue (actualText.getText().matches(expectedText));
     }
 }
 
