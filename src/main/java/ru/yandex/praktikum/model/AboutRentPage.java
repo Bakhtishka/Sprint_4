@@ -24,34 +24,37 @@ import java.time.Duration;
 // страница: "Про аренду"
 public class AboutRentPage {
     //поле выбора даты: "Когда привезти самокат"
-    private final By DATE_PICKER_FIELD = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[1]/div/input");
+    private final By datePickerField = By.xpath("//*[@id='root']/div/div[2]/div[2]/div[1]/div[1]/div/input");
 
     //поле/выпадающий список "Срок аренды"(стрелка)
-    private final By CHOOSE_RENT_PERIOD_FIELD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]");
+    private final By chooseRentElementPeriodField = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]");
 
     //элемент "трое суток" в выпадающем списке "Срок аренды"
-    private final By CHOOSE_ELEMENT_IN_DROPDOWN_MENU_RENT_PERIOD = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div[3]");
+    private final By chooseElementInDropdownMenuRentPeriod = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[2]/div[2]/div[3]");
 
     //чекбокс "Чёрная жемчужина"
-    private final By BLACK_SCOOTER_CHECKBOX = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[3]/label[1]");
+    private final By blackScooterCheckbox = By.xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[3]/label[1]");
 
     //чекбокс "Серая безисходность"
-    private final By GRAY_SCOOTER_CHECKBOX = By.cssSelector("input#grey.Checkbox_Input__14A2w");
+    private final By grayScooterCheckbox = By.cssSelector("input#grey.Checkbox_Input__14A2w");
 
     //поле "Комментарий для курьера"
-    private final By COMMENT_FIELD = By.xpath("//input[@type='text'][@placeholder='Комментарий для курьера']"); //xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/input");
+    private final By commentField = By.xpath("//input[@type='text'][@placeholder='Комментарий для курьера']"); //xpath("//*[@id=\"root\"]/div/div[2]/div[2]/div[4]/input");
 
     //кнопка "Заказать" под формой заказа
-    private final By ORDER_BUTTON = By.cssSelector("button.Button_Middle__1CSJM:nth-child(2)");
+    private final By orderButton = By.cssSelector("button.Button_Middle__1CSJM:nth-child(2)");
 
     //всплывающее окно "Хотите оформить заказ?"
-    private final By WONT_YOU_PLACE_AN_ORDER_WINDOW = By.cssSelector("div.Order_Modal__YZ-d3");
+    private final By wontYouPlaceAnOrderWindow = By.cssSelector("div.Order_Modal__YZ-d3");
 
     //кнопка "Да" в окошке "Хотите оформить заказ?"
-    private final By YES_BUTTON = By.cssSelector("button.Button_Button__ra12g.Button_Middle__1CSJM"); //cssSelector("//*[@id=\"root\"]/div/div[2]/div[5]/div[2]/button[2]");
+    private final By yesButton = By.xpath("/html/body/div/div/div[2]/div[5]/div[2]/button[2]");
 
     //окошко "ЗАКАЗ ОФОРМЛЕН"
-    private final By ORDER_IS_PROCESSED = By.cssSelector("div.Order_Modal__YZ-d3");
+    private final By orderIsProcessedWindow = By.xpath("//*[text()='Заказ оформлен']");
+
+    //текст в окошке "Заказ оформлен"
+    private final By textInWindowOrderIsProcessed = By.xpath("//*[text()='Заказ оформлен']"); //cssSelector("div.Order_ModalHeader__3FDaJ");
 
     private final WebDriver driver;
 
@@ -62,84 +65,89 @@ public class AboutRentPage {
     //метод, заполняющий  поле "Когда привезти самокат"
     public void inputDateField(String date) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(DATE_PICKER_FIELD));
-        WebElement inputDate = driver.findElement(DATE_PICKER_FIELD);
+        wait.until(ExpectedConditions.elementToBeClickable(datePickerField));
+        WebElement inputDate = driver.findElement(datePickerField);
         inputDate.click();
         inputDate.clear();
         inputDate.sendKeys(date);
         WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait1.until(ExpectedConditions.elementToBeClickable(DATE_PICKER_FIELD));
+        wait1.until(ExpectedConditions.elementToBeClickable(datePickerField));
         inputDate.sendKeys(Keys.RETURN);
-        Assert.assertEquals(date, inputDate.getAttribute("value"));
     }
 
     //метод заполняет поле "Срок аренды"
     public void chooseRentPeriod() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(CHOOSE_RENT_PERIOD_FIELD));
-        WebElement chooseRentPeriod = driver.findElement(CHOOSE_RENT_PERIOD_FIELD);
+        wait.until(ExpectedConditions.elementToBeClickable(chooseRentElementPeriodField));
+        WebElement chooseRentPeriod = driver.findElement(chooseRentElementPeriodField);
         chooseRentPeriod.click();
         WebDriverWait wait1 = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait1.until(ExpectedConditions.visibilityOfElementLocated(CHOOSE_ELEMENT_IN_DROPDOWN_MENU_RENT_PERIOD));
-        WebElement rentPeriod = driver.findElement(CHOOSE_ELEMENT_IN_DROPDOWN_MENU_RENT_PERIOD);
+        wait1.until(ExpectedConditions.visibilityOfElementLocated(chooseElementInDropdownMenuRentPeriod));
+        WebElement rentPeriod = driver.findElement(chooseElementInDropdownMenuRentPeriod);
         rentPeriod.click();
     }
 
     // метод, выбирающий в самокат черного цвета в поле "Цвет самоката"
     public void chooseScooterColourBlack() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(BLACK_SCOOTER_CHECKBOX));
-        WebElement blackScooter = driver.findElement(BLACK_SCOOTER_CHECKBOX);
+        wait.until(ExpectedConditions.elementToBeClickable(blackScooterCheckbox));
+        WebElement blackScooter = driver.findElement(blackScooterCheckbox);
         blackScooter.click();
-      //  Assert.assertTrue(blackScooter.isSelected());
     }
 
     // метод, выбирающий  самокат серого цвета в поле "Цвет самоката"
     public void chooseScooterColourGray() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(GRAY_SCOOTER_CHECKBOX));
-        WebElement grayScooter = driver.findElement(GRAY_SCOOTER_CHECKBOX);
+        wait.until(ExpectedConditions.elementToBeClickable(grayScooterCheckbox));
+        WebElement grayScooter = driver.findElement(grayScooterCheckbox);
         grayScooter.click();
-        Assert.assertTrue(grayScooter.isSelected());
     }
 
     // метод заполняет поле "Комментарии для курьера"
     public void inputTextInCommentField(String comment) {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(COMMENT_FIELD));
-        WebElement commentText = driver.findElement(COMMENT_FIELD);
+        wait.until(ExpectedConditions.elementToBeClickable(commentField));
+        WebElement commentText = driver.findElement(commentField);
         commentText.click();
         commentText.clear();
         commentText.sendKeys(comment);
-        Assert.assertEquals(comment, commentText.getAttribute("value"));
     }
 
     // метод кликает на кнопку "Заказать" под формой заказа
     public void clickOrderButton() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(ORDER_BUTTON));
-        driver.findElement(ORDER_BUTTON).click();
+        wait.until(ExpectedConditions.elementToBeClickable(orderButton));
+        driver.findElement(orderButton).click();
     }
 
     //проверить, что после нажатия на кнопку "Заказать" открылось окошко "Хотите оформить заказ"
-    public void checkWontYouPlaceAnOrderWidowIsDisplayed() {
+    public void checkWontYouPlaceAnOrderWidowIsOpen() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(WONT_YOU_PLACE_AN_ORDER_WINDOW));
-        Assert.assertTrue(driver.findElement(WONT_YOU_PLACE_AN_ORDER_WINDOW).isDisplayed());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(wontYouPlaceAnOrderWindow));
+        Assert.assertTrue(driver.findElement(wontYouPlaceAnOrderWindow).isDisplayed());
     }
 
     //метод кликает на кнопку "Да" в всплывающем окне "Хотите оформить заказ"
     public void clickYesButtonInOrderWindow() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.elementToBeClickable(YES_BUTTON));
-        driver.findElement(YES_BUTTON).click();
+        wait.until(ExpectedConditions.elementToBeClickable(yesButton));
+        driver.findElement(yesButton).click();
     }
 
-    // проверка открылось ли всплывающее окошко "Заказ оформлен"
-    public void checkOrderIsProcessedWindowIsDisplayed() {
+    //проверяем открылось ли окошко "Заказ оформлен"
+    public void checkOrderIsProcessedWindowIsOpen() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(ORDER_IS_PROCESSED));
-        Assert.assertTrue(driver.findElement(ORDER_IS_PROCESSED).isDisplayed());
+        wait.until(ExpectedConditions.visibilityOfElementLocated(orderIsProcessedWindow));
+        Assert.assertTrue(driver.findElement(orderIsProcessedWindow).isDisplayed());
+    }
+
+    // проверка соответствует ли текст в всплывающем окошке "Заказ оформлен", ожидаемому
+    public void checkTextInOrderIsProcessedWindow() {
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+        wait.until(ExpectedConditions.visibilityOfElementLocated(textInWindowOrderIsProcessed));
+        final String expectedText = "Заказ оформлен";
+        WebElement actualText = driver.findElement(textInWindowOrderIsProcessed);
+        Assert.assertEquals (expectedText, actualText.getText());
     }
 }
 

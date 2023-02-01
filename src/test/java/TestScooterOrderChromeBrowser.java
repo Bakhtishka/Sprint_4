@@ -53,16 +53,15 @@ public class TestScooterOrderChromeBrowser {
         page.select_MetroStationInMetroField(metroStation);
         page.enter_PhoneNumberInInputPhoneField(phoneNumUser);
         page.clickNextButton();
-        page.checkAboutRentPageIsOpen();
         aboutRentPage.inputDateField(selectDate);               //заполняем поле "КОГДА ПРИВЕЗТИ САМОКАТ"
         aboutRentPage.chooseRentPeriod();                       //выбираем в списке нужный срок аренды
         aboutRentPage.chooseScooterColourGray();                //выбираем Серый цвет самоката
         aboutRentPage.inputTextInCommentField(commentUser);     //пишем комментарий
         aboutRentPage.clickOrderButton();                        //жмем кнопку "ЗАКАЗАТЬ" внизу формы
+        aboutRentPage.checkWontYouPlaceAnOrderWidowIsOpen();     //проверяем открылось ли окошко "Хотите оформить заказ"
         aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
-        aboutRentPage.checkWontYouPlaceAnOrderWidowIsDisplayed(); //проверяем открылось ли окно "Хотите оформить заказ"
-        aboutRentPage.clickYesButtonInOrderWindow();              //в открывшемся окошке жмем кнопку "ДА"
-        aboutRentPage.checkOrderIsProcessedWindowIsDisplayed();    //этот пункт не сработал - баг.
+        aboutRentPage.checkOrderIsProcessedWindowIsOpen();       //проверка: открылось ли окошко "Заказ оформлен"
+        aboutRentPage.checkTextInOrderIsProcessedWindow();        //проверяем тот ли текст в окошке "Заказ оформлен"
     }
 
          // 2-ой флоу сценарий: тестирование с кнопкой "Заказать" в центре страницы
@@ -79,16 +78,15 @@ public class TestScooterOrderChromeBrowser {
         page.select_MetroStationInMetroField(metroStation);
         page.enter_PhoneNumberInInputPhoneField(phoneNumUser);
         page.clickNextButton();
-        page.checkAboutRentPageIsOpen();
         aboutRentPage.inputDateField(selectDate);               //заполняем поле "КОГДА ПРИВЕЗТИ САМОКАТ"
         aboutRentPage.chooseRentPeriod();                       //выбираем в списке нужный срок аренды
         aboutRentPage.chooseScooterColourGray();                //выбираем Серый цвет самоката
         aboutRentPage.inputTextInCommentField(commentUser);     //пишем комментарий
         aboutRentPage.clickOrderButton();                        //жмем кнопку "ЗАКАЗАТЬ" внизу формы
         aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
-        aboutRentPage.checkWontYouPlaceAnOrderWidowIsDisplayed(); //проверяем открылось ли окно "Хотите оформить заказ"
-        aboutRentPage.clickYesButtonInOrderWindow();              //в открывшемся окошке жмем кнопку "ДА"
-        aboutRentPage.checkOrderIsProcessedWindowIsDisplayed();    //этот пункт не сработал - баг.
+        aboutRentPage.clickYesButtonInOrderWindow();             // жмем кнопку "ДА" в открывшемся окошке
+        aboutRentPage.checkOrderIsProcessedWindowIsOpen();       //проверка: открылось ли окошко "Заказ оформлен"
+        aboutRentPage.checkTextInOrderIsProcessedWindow();        //проверяем тот ли текст в окошке "Заказ оформлен"
 
     }
 

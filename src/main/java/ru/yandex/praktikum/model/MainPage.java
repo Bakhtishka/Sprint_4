@@ -13,55 +13,55 @@ import java.time.Duration;
 public class MainPage {
 
     // первая вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-0.accordion__button");
+    private final By buttonOne = By.cssSelector("div#accordion__heading-0.accordion__button");
 
     // раскрытая первая вкладка
-    //("div#accordion__panel-0.accordion__panel");
+    private final By panelOne = By.cssSelector("div#accordion__panel-0.accordion__panel");
 
     // 2-я вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-1.accordion__button");
+    private final By buttonTwo = By.cssSelector("div#accordion__heading-1.accordion__button");
 
     // раскрытая 2-я вкладка
-    //("div#accordion__panel-1.accordion__panel");
+    private final By panelTwo = By.cssSelector("div#accordion__panel-1.accordion__panel");
 
     // 3-я вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-2.accordion__button");
+    private final By buttonThree = By.cssSelector("div#accordion__heading-2.accordion__button");
 
     // раскрытая 3-я вкладка
-    //("div#accordion__panel-2.accordion__panel");
+    private final By panelThree = By.cssSelector("div#accordion__panel-2.accordion__panel");
 
     // 4-я  вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-3.accordion__button");
+    private final By buttonFour = By.cssSelector("div#accordion__heading-3.accordion__button");
 
     // раскрытая 4-я вкладка
-    //("div#accordion__panel-3.accordion__panel");
+    private final By panelFour = By.cssSelector("div#accordion__panel-3.accordion__panel");
 
     // 5-я вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-4.accordion__button");
+    private final By buttonFive = By.cssSelector("div#accordion__heading-4.accordion__button");
 
     // раскрытая 5-я вкладка
-    //("div#accordion__panel-4.accordion__panel");
+    private final By panelFive = By.cssSelector("div#accordion__panel-4.accordion__panel");
 
     // 6-я вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-5.accordion__button");
+    private final By buttonSix = By.cssSelector("div#accordion__heading-5.accordion__button");
 
     // раскрытая 6-я вкладка
-    //("div#accordion__panel-5.accordion__panel");
+    private final By panelSix = By.cssSelector("div#accordion__panel-5.accordion__panel");
 
     // 7-я вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-6.accordion__button");
+    private final By buttonSeven = By.cssSelector("div#accordion__heading-6.accordion__button");
 
     // раскрытая 7-я вкладка
-    //("div#accordion__panel-6.accordion__panel");
+    private final By panelSeven = By.cssSelector("div#accordion__panel-6.accordion__panel");
 
     // 8-я вкладка выпадающего списка в разделе «Вопросы о важном»
-    //("div#accordion__heading-7.accordion__button");
+    private final By buttonEight = By.cssSelector("div#accordion__heading-7.accordion__button");
 
     // раскрытая 8-я вкладка
-    //("div#accordion__panel-7.accordion__panel");
+    private final By panelEight = By.cssSelector("div#accordion__panel-7.accordion__panel");
 
     //локатор для принятия куки, кнопка "Да все привыкли"
-    private final By COOKIE_BUTTON = By.cssSelector("button#rcc-confirm-button.App_CookieButton__3cvqF");
+    private final By cookieButton = By.cssSelector("button#rcc-confirm-button.App_CookieButton__3cvqF");
     private final WebDriver driver;
 
     public MainPage(WebDriver driver) {
@@ -76,9 +76,9 @@ public class MainPage {
 
     //Метод принимает куки, нажимает на кнопку "Да все привыкли"
     public void clickCookie() {
-        WebElement element = driver.findElement(COOKIE_BUTTON);
+        WebElement element = driver.findElement(cookieButton);
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView();", element);
-        driver.findElement(COOKIE_BUTTON).click();
+        driver.findElement(cookieButton).click();
     }
 
     public void checkTextsInSubHeaderPanels(
